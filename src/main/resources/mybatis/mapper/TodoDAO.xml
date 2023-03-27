@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.multicampus.springboot.dao.ITodoDAO">
+
+    <select id="selectAllDAO" resultType="com.multicampus.springboot.dto.TodoDTO">
+        SELECT * FROM tbl_todo
+    </select>
+    <select id="selectList" resultType="com.multicampus.springboot.dto.TodoDTO">
+        SELECT * FROM tbl_todo order by tno desc limit #{skip},#{size}
+    </select>
+    <select id="getCount" resultType="int">
+        SELECT count(tno) FROM tbl_todo
+    </select>
+    <select id="viewDAO" resultType="com.multicampus.springboot.dto.TodoDTO">
+        SELECT * from tbl_todo where tno = #{tno}
+    </select>
+    <insert id="insertDAO" parameterType="com.multicampus.springboot.dto.TodoDTO">
+        insert into tbl_todo(title,dueDate,writer) values (#{title},#{dueDate},#{writer})
+    </insert>
+    <update id="modifyDAO" parameterType="com.multicampus.springboot.dto.TodoDTO">
+        update tbl_todo set title=#{title},dueDate=#{dueDate}, finished=#{finished} where tno = #{tno}
+    </update>
+    <delete id="removeDAO">
+        delete from tbl_todo where tno = #{tno}
+    </delete>
+    <!--<select id="searchDAO" resultType="com.multicampus.springboot.dto.TodoDTO" parameterType="com.multicampus.springboot.dto.SearchDTO">
+        select tno,title,dueDate,writer,finished from tbl_todo where finished = #{finished} and title like concat('%',#{searchContent},'%')
+                                                                 and writer like concat('%',#{searchContent},'%') and dueDate between #{startDate} and #{endDate}
+    </select>-->
+    <select id="searchDAO" resultType="com.multicampus.springboot.dto.TodoDTO"
+            parameterType="com.multicampus.springboot.dto.PageRequestDTO">
+        select * from tbl_todo
+        <where>
+            <if test="types != null and types.length > 0">
+                <foreach collection="types" item="type" open="(" close=") " separator=" OR ">
+                    <if test="type == 't'.toString()">
+                        title like concat('%', #{keyword}, '%')
+                    </if>
+                    <if test="type == 'w'.toString()">
+                        writer like concat('%', #{keyword}, '%')
+                    </if>
+                </foreach>
+            </if>
+            <if test="finished">
+                <trim prefix="and">
+                    finished = 1
+                </trim>
+            </if>
+            <if test="from != null and to != null">
+                <trim prefix="and">
+                    dueDate between #{from} and #{to}
+                </trim>
+            </if>
+        </where>
+        order by tno desc limit #{skip}, #{size}
+    </select>
+</mapper>
