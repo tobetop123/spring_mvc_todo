@@ -81,6 +81,6 @@
                 </trim>
             </if>
         </where>
-        order by tno desc limit #{skip}, #{size}
+        order by tno desc limit #{size}
     </select>
 </mapper>
