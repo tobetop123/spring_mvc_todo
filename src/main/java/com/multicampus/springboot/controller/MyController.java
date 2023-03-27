@@ -73,17 +73,21 @@ public class MyController {
         return "redirect:list";
     }
 
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    /*@RequestMapping(value = "/search",method = RequestMethod.GET)
     public String search(PageRequestDTO pageRequestDTO, Model model){
         model.addAttribute("responseDTO",service.search(pageRequestDTO));
         return "list";
-    }
+    }*/
 
     @GetMapping("/list")
     public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, Model model){
         /*if(bindingResult.hasErrors()){
             pageRequestDTO = PageRequestDTO.builder().build();
         }*/
-        model.addAttribute("responseDTO", service.getList(pageRequestDTO));
+        if(pageRequestDTO.getTypes() != null){
+            model.addAttribute("responseDTO",service.search(pageRequestDTO));
+        }else{
+            model.addAttribute("responseDTO", service.getList(pageRequestDTO));
+        }
     }
 }
