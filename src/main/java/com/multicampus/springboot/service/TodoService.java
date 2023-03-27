@@ -39,7 +39,7 @@ public class TodoService implements ITodoService{
     @Override
     public PageResponseDTO<TodoDTO> search(PageRequestDTO pageRequestDTO) {
         List<TodoDTO> dtoList=dao.searchDAO(pageRequestDTO);
-        int total = dao.getCount(pageRequestDTO);
+        int total = dao.searchCount(pageRequestDTO);
         PageResponseDTO<TodoDTO> pageResponseDTO = PageResponseDTO.<TodoDTO>withAll()
                 .dtoList(dtoList)
                 .total(total)
