@@ -19,5 +19,6 @@ public interface ITodoDAO {
     int modifyDAO(TodoDTO todoDTO);
     int removeDAO(String tno);
     List<TodoDTO> searchDAO(PageRequestDTO dto);
+    int searchCount(PageRequestDTO pageRequestDTO);
 
 }
