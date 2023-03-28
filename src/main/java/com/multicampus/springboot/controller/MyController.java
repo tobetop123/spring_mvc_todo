@@ -84,10 +84,8 @@ public class MyController {
         /*if(bindingResult.hasErrors()){
             pageRequestDTO = PageRequestDTO.builder().build();
         }*/
-        if(pageRequestDTO.getTypes() != null){
-            model.addAttribute("responseDTO",service.search(pageRequestDTO));
-        }else{
-            model.addAttribute("responseDTO", service.getList(pageRequestDTO));
-        }
+        model.addAttribute("responseDTO",service.search(pageRequestDTO));
+        model.addAttribute("responseDTO", service.getList(pageRequestDTO));
+
     }
 }
