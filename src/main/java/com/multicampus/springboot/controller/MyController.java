@@ -44,14 +44,14 @@ public class MyController {
     @GetMapping("/view")
     public String view(HttpServletRequest request, PageRequestDTO pageRequestDTO,Model model){
         String tno= request.getParameter("tno");
-        model.addAttribute("dto",service.view(tno,pageRequestDTO));
+        model.addAttribute("dto",service.view(tno));
         return "view";
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.GET)
     public String modify(HttpServletRequest request, PageRequestDTO pageRequestDTO,Model model){
         String tno= request.getParameter("tno");
-        model.addAttribute("dto",service.view(tno,pageRequestDTO));
+        model.addAttribute("dto",service.view(tno));
         return "modify";
     }
 

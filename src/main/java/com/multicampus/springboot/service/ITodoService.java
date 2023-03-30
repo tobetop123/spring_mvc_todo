@@ -10,7 +10,7 @@ public interface ITodoService {
 
     List<TodoDTO> selectAll();
     int insert(TodoDTO todoDTO);
-    TodoDTO view(String tno, PageRequestDTO pageRequestDTO);
+    TodoDTO view(String tno);
     int modify(TodoDTO todoDTO);
     int remove(String tno);
     PageResponseDTO<TodoDTO>search(PageRequestDTO pageRequestDTO);
