@@ -21,7 +21,7 @@ public class TodoService implements ITodoService{
     }
 
     @Override
-    public TodoDTO view(String tno,PageRequestDTO pageRequestDTO) {
+    public TodoDTO view(String tno) {
         return dao.viewDAO(tno);
     }
 
